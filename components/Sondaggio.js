@@ -68,22 +68,22 @@ const Sondaggio: React.FC = (props) => {
   };
 
   const avanti = () => {
-
-    const pay = payload;
-    pay.push({Domanda: domanda, Risposta: risposta});
-    setPayload(pay);
-
-    if (conta < data.length-1) {
-      // prendo la domanda e la risposta
-      setConta(conta + 1);  
-      if(conta + 1 == data.length-1){
-        setEnd(true);
+    if(risposta!=''){
+      const pay = payload;
+      pay.push({Domanda: domanda, Risposta: risposta});
+      setPayload(pay);
+      setRisposta('');
+      if (conta < data.length-1) {
+        // prendo la domanda e la risposta
+        setConta(conta + 1);  
+        if(conta + 1 == data.length-1){
+          setEnd(true);
+        }
+      } else {
+        termina();
+        props.navigation.goBack();
       }
-    } else {
-      termina();
-      props.navigation.goBack();
     }
-
   }
 
   const indietro = () => {
@@ -94,19 +94,20 @@ const Sondaggio: React.FC = (props) => {
   }
 
   const termina = async () => { 
-    for(var i = 0; i < payload.length; i++){
-      try {
-          const richiesta =
-            '{"domanda":"' + payload[i].Domanda + '", "risposta":"' + payload[i].Risposta + '"}';
-          const response = await fetch(
-            'https://script.google.com/macros/s/AKfycbyNCc8dfydRUPWluNq0JQni0TcxnNpsiM7SBZ2AArMi3M-9dPZ1/exec?action=post&oggetto=' +
-              richiesta
-          );
-        } catch (error) {
-          <Text>Errore</Text>;
-      }
-    } 
-
+    if(risposta!=''){
+      for(var i = 0; i < payload.length; i++){
+        try {
+            const richiesta =
+              '{"domanda":"' + payload[i].Domanda + '", "risposta":"' + payload[i].Risposta + '"}';
+            const response = await fetch(
+              'https://script.google.com/macros/s/AKfycbyNCc8dfydRUPWluNq0JQni0TcxnNpsiM7SBZ2AArMi3M-9dPZ1/exec?action=post&oggetto=' +
+                richiesta
+            );
+          } catch (error) {
+            <Text>Errore</Text>;
+        }
+      } 
+    }
   };
 
   const prelevaDomande = async () => {
@@ -140,14 +141,14 @@ const Sondaggio: React.FC = (props) => {
           <RadioButtonItem style={{marginBottom:5, marginTop:5}} value={ris3} label={<Text>{ris3}</Text>} />
         </RadioButtonGroup>
 
-        
-        <Pressable onPress={avanti} style={styles.button}>
-        <Text > {!end?"AVANTI":"TERMINA"} </Text>
-        </Pressable>
-        <Pressable onPress={indietro} style={styles.button}>
-          <Text > INDIETRO </Text>
-        </Pressable>
-      
+        <View style={{flexDirection:'row'}}>
+          <Pressable onPress={indietro} style={styles.button}>
+            <Text >{"<- INDIETRO"}</Text>
+          </Pressable>
+          <Pressable onPress={avanti} style={styles.button}>
+            <Text >{!end?"AVANTI ->":"TERMINA"} </Text>
+          </Pressable>
+        </View>
       </View>
     );
   }
@@ -179,12 +180,13 @@ const styles = StyleSheet.create({
     alignItems:'center',
     backgroundColor: 'lightblue',
     justifyContent:'center',
-    width: 70,
-    height: 30,
-    marginTop: 10,
+    width:100,
+    marginTop: 40,
+    marginHorizontal:15,
+    padding:5,
     borderWidth: 1,
+    borderRadius:10
   }
 });
 
 export default Sondaggio;
-
