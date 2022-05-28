@@ -17,8 +17,11 @@ const Sondaggio: React.FC = (props) => {
   const [ris2, setRis2] = useState('');
   const [ris3, setRis3] = useState('');
   const [conta, setConta] = useState(0);
-  const [numQues, setNumQues] = useState(0);
   const [data, setData] = useState([]);
+  const [end, setEnd] = useState(false);
+  const [payload, setPayload] = useState([]);
+  
+
 
   const popola = (datas) => {
     const vet=[];
@@ -63,7 +66,51 @@ const Sondaggio: React.FC = (props) => {
       }
     }
   };
+
+  const avanti = () => {
+
+    const pay = payload;
+    pay.push({Domanda: domanda, Risposta: risposta});
+    setPayload(pay);
+
+    if (conta < data.length-1) {
+      // prendo la domanda e la risposta
+      setConta(conta + 1);  
+      if(conta + 1 == data.length-1){
+        setEnd(true);
+      }
+    } else {
+      termina();
+      props.navigation.goBack();
+    }
+
+  }
+
+  const indietro = () => {
+    if (conta > 0){
+      setEnd(false);
+      setConta(conta - 1);  
+    }
+  }
+
+  const termina = async () => { 
+    for(var i = 0; i < payload.length; i++){
+      try {
+          const richiesta =
+            '{"domanda":"' + payload[i].Domanda + '", "risposta":"' + payload[i].Risposta + '"}';
+          const response = await fetch(
+            'https://script.google.com/macros/s/AKfycbyNCc8dfydRUPWluNq0JQni0TcxnNpsiM7SBZ2AArMi3M-9dPZ1/exec?action=post&oggetto=' +
+              richiesta
+          );
+        } catch (error) {
+          <Text>Errore</Text>;
+      }
+    } 
+
+  };
+
   const prelevaDomande = async () => {
+      
       try {
         if(data.length == 0){
           const response = await fetch(
@@ -82,18 +129,25 @@ const Sondaggio: React.FC = (props) => {
   useEffect(() => {
       prelevaDomande();
   });
+
   if(domanda!=''||ris1!=''||ris2!=''||ris3!=''){
     return (
       <View style={styles.centered}>
         <Text style={styles.subtitle}>{domanda}</Text>
         <RadioButtonGroup selected={risposta} onSelected={(value)=>{setRisposta(value)}}>
-          <RadioButtonItem value={ris1} label={<Text>{ris1}</Text>} />
-          <RadioButtonItem value={ris2} label={<Text>{ris2}</Text>} />
-          <RadioButtonItem value={ris3} label={<Text>{ris3}</Text>} />
+          <RadioButtonItem style={{marginBottom:5, marginTop:5}} value={ris1} label={<Text>{ris1}</Text>} />
+          <RadioButtonItem style={{marginBottom:5, marginTop:5}} value={ris2} label={<Text>{ris2}</Text>} />
+          <RadioButtonItem style={{marginBottom:5, marginTop:5}} value={ris3} label={<Text>{ris3}</Text>} />
         </RadioButtonGroup>
-        <Pressable onPress={invia} style={styles.button}>
-          <Text > INVIA </Text>
+
+        
+        <Pressable onPress={avanti} style={styles.button}>
+        <Text > {!end?"AVANTI":"TERMINA"} </Text>
         </Pressable>
+        <Pressable onPress={indietro} style={styles.button}>
+          <Text > INDIETRO </Text>
+        </Pressable>
+      
       </View>
     );
   }
@@ -127,9 +181,9 @@ const styles = StyleSheet.create({
     justifyContent:'center',
     width: 70,
     height: 30,
-    marginTop: 20,
+    marginTop: 10,
     borderWidth: 1,
-  },
+  }
 });
 
 export default Sondaggio;
