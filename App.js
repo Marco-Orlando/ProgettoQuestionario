@@ -4,12 +4,16 @@ import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
 import Questionario from './components/Questionario'
 import Sondaggio from './components/Sondaggio'
+import Statistiche from './components/Statistiche'
 
 const Stack = createStackNavigator();
 
 const Home = (props) => {
   const naviga = () =>{
     props.navigation.navigate('Sondaggio');
+  }
+  const onStatistiche = () =>{
+    props.navigation.navigate('Statistiche');
   }
   return (
     <View style={styles.centered}>
@@ -18,6 +22,9 @@ const Home = (props) => {
       <Text style={styles.subtitle}> Raccolta dati studenti 4CI</Text>  
       <Pressable onPress={naviga}>
         <Text style={styles.input}> INIZIA </Text>  
+      </Pressable>
+      <Pressable onPress={onStatistiche}>
+        <Text style={styles.input}> STATISTICHE </Text>  
       </Pressable>
     </View>
   )
@@ -30,6 +37,7 @@ const App: React.FC = () => {
             <Stack.Screen name="Home" component={Home}/>
             <Stack.Screen name="Sondaggio" component={Sondaggio}/>
             <Stack.Screen name="Questionario" component={Questionario}/>
+            <Stack.Screen name="Statistiche" component={Statistiche}/>
           </Stack.Navigator>
       </NavigationContainer>
   );
@@ -52,7 +60,7 @@ const styles = StyleSheet.create({
   subtitle: {
     fontWeight: 'bold',
     fontSize: 15,
-    marginVertical: 30,
+    marginVertical: 20,
     margin: 10
   },
 
@@ -61,9 +69,10 @@ const styles = StyleSheet.create({
     backgroundColor: 'lightblue',
     width:200,
     height: 40,
-    margin: 12,
+    margin: 7,
     borderWidth: 1,
     padding: 10,
+    borderRadius:15,
   },
   image: {
     width: 150,
