@@ -6,7 +6,8 @@ import {
   View,
   StyleSheet,
   Pressable, 
-  Image
+  Image,
+  Alert
 } from 'react-native';
 import { RadioButtonGroup, RadioButtonItem } from 'expo-radio-button';
 
@@ -91,8 +92,11 @@ const Sondaggio: React.FC = (props) => {
       setEnd(false);
       setConta(conta - 1);  
     }
+    else{
+      props.navigation.goBack();
+    }
   }
-
+  
   const termina = async () => { 
     if(risposta!=''){
       for(var i = 0; i < payload.length; i++){
@@ -103,11 +107,13 @@ const Sondaggio: React.FC = (props) => {
               'https://script.google.com/macros/s/AKfycbyNCc8dfydRUPWluNq0JQni0TcxnNpsiM7SBZ2AArMi3M-9dPZ1/exec?action=post&oggetto=' +
                 richiesta
             );
-          } catch (error) {
-            <Text>Errore</Text>;
+          } 
+        catch (error) {
+          <Text>Errore</Text>;
         }
-      } 
+      }
     }
+    
   };
 
   const prelevaDomande = async () => {
