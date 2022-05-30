@@ -150,7 +150,6 @@ const Sondaggio: React.FC = (props) => {
   });
 
   if((domanda!=''||ris1!=''||ris2!=''||ris3!='')&&!invio){
-    if(conta==0){
       return (
         <View style={styles.centered}>
           <Text style={styles.subtitle}>{domanda}</Text>
@@ -160,33 +159,15 @@ const Sondaggio: React.FC = (props) => {
             <RadioButtonItem style={{marginBottom:5, marginTop:5}} value={ris3} label={<Text>{ris3}</Text>} />
           </RadioButtonGroup>
           <View style={{flexDirection:'row'}}>
+          {conta!=0&&(<Pressable onPress={indietro} style={styles.button}>
+            <Text >{"<- INDIETRO"}</Text>
+          </Pressable>)}
             <Pressable onPress={avanti} style={styles.button}>
               <Text >{!end?"AVANTI ->":"TERMINA"} </Text>
             </Pressable>
           </View>
         </View>
       );
-    }
-    else{
-      return (
-      <View style={styles.centered}>
-        <Text style={styles.subtitle}>{domanda}</Text>
-        <RadioButtonGroup selected={risposta} onSelected={(value)=>{selezionato(value)}}>
-          <RadioButtonItem style={{marginBottom:5, marginTop:5}} value={ris1} label={<Text>{ris1}</Text>} />
-          <RadioButtonItem style={{marginBottom:5, marginTop:5}} value={ris2} label={<Text>{ris2}</Text>} />
-          <RadioButtonItem style={{marginBottom:5, marginTop:5}} value={ris3} label={<Text>{ris3}</Text>} />
-        </RadioButtonGroup>
-        <View style={{flexDirection:'row'}}>
-          <Pressable onPress={indietro} style={styles.button}>
-            <Text >{"<- INDIETRO"}</Text>
-          </Pressable>
-          <Pressable onPress={avanti} style={styles.button}>
-            <Text >{!end?"AVANTI ->":"TERMINA"} </Text>
-          </Pressable>
-        </View>
-      </View>
-    );
-    }
   }
   else{
     return(

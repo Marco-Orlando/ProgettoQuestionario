@@ -99,7 +99,7 @@ const PieChartView:React.FC=(props)=>{
         setConta(conta + 1);  
       } 
   }
-if(dati.length!=0&&conta==0){
+if(dati.length!=0){
       return(
         <View style={styles.centered}>
           <Text style={styles.title}>{domande[conta]}</Text>
@@ -113,54 +113,12 @@ if(dati.length!=0&&conta==0){
             paddingLeft={"15"}
           />
           <View style={{flexDirection:'row'}}>
-            <Pressable onPress={avanti} style={styles.button}>
-              <Text>{"AVANTI ->"} </Text>
-            </Pressable>
-          </View>
-        </View>
-      );
-    }
-    else if(dati.length!=0&&conta==dati.length-1){
-      return(
-        <View style={styles.centered}>
-          <Text style={styles.title}>{domande[conta]}</Text>
-          <PieChart
-            data={dati[conta].record}
-            width={300}
-            height={220}
-            chartConfig={chartConfig}
-            accessor={"population"}
-            backgroundColor={"transparent"}
-            paddingLeft={"15"}
-          />
-          <View style={{flexDirection:'row'}}>
-            <Pressable onPress={indietro} style={styles.button}>
+            {conta!=0&&(<Pressable onPress={indietro} style={styles.button}>
               <Text>{"<- INDIETRO"}</Text>
-            </Pressable>
-          </View>
-        </View>
-      );
-    }
-    else if(dati.length!=0){
-      return(
-        <View style={styles.centered}>
-          <Text style={styles.title}>{domande[conta]}</Text>
-          <PieChart
-            data={dati[conta].record}
-            width={300}
-            height={220}
-            chartConfig={chartConfig}
-            accessor={"population"}
-            backgroundColor={"transparent"}
-            paddingLeft={"15"}
-          />
-          <View style={{flexDirection:'row'}}>
-            <Pressable onPress={indietro} style={styles.button}>
-              <Text>{"<- INDIETRO"}</Text>
-            </Pressable>
-            <Pressable onPress={avanti} style={styles.button}>
+            </Pressable>)}
+            {conta!=dati.length-1&&(<Pressable onPress={avanti} style={styles.button}>
               <Text>{"AVANTI ->"} </Text>
-            </Pressable>
+            </Pressable>)}
           </View>
         </View>
       );

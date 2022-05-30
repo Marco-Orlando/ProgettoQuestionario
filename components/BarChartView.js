@@ -81,29 +81,7 @@ const BarChartView:React.FC=(props)=>{
     color: () => 'black',
     
   };
-
-  if(dati.length!=0&&conta==0){
-      return(
-        <View style={styles.centered}>
-          <Text style={styles.title}>{domande[conta]}</Text>
-          <BarChart
-            style={styles.grafico}
-            data={{
-              labels:[dati[conta].Risposta_1,dati[conta].Risposta_2,dati[conta].Risposta_3],              datasets:[{data:[dati[conta].Num_R1,dati[conta].Num_R2,dati[conta].Num_R3]}]
-            }}
-            width={270}
-            height={220}
-            chartConfig={chartConfig}
-          />
-          <View style={{flexDirection:'row'}}>
-            <Pressable onPress={avanti} style={styles.button}>
-              <Text>{"AVANTI ->"} </Text>
-            </Pressable>
-          </View>
-        </View>
-      );
-    }
-    else if(dati.length!=0&&conta==dati.length-1){
+    if(dati.length!=0){
       return(
         <View style={styles.centered}>
           <Text style={styles.title}>{domande[conta]}</Text>
@@ -118,34 +96,12 @@ const BarChartView:React.FC=(props)=>{
             chartConfig={chartConfig}
           />
           <View style={{flexDirection:'row'}}>
-            <Pressable onPress={indietro} style={styles.button}>
+            {conta!=0&&(<Pressable onPress={indietro} style={styles.button}>
               <Text>{"<- INDIETRO"}</Text>
-            </Pressable>
-          </View>
-        </View>
-      );
-    }
-    else if(dati.length!=0){
-      return(
-        <View style={styles.centered}>
-          <Text style={styles.title}>{domande[conta]}</Text>
-          <BarChart
-            style={styles.grafico}
-            data={{
-              labels:[dati[conta].Risposta_1,dati[conta].Risposta_2,dati[conta].Risposta_3],              datasets:[{data:[dati[conta].Num_R1,dati[conta].Num_R2,dati[conta].Num_R3]}]
-            }}
-            width={270}
-            height={220}
-            yAxisLabel=""
-            chartConfig={chartConfig}
-          />
-          <View style={{flexDirection:'row'}}>
-            <Pressable onPress={indietro} style={styles.button}>
-              <Text>{"<- INDIETRO"}</Text>
-            </Pressable>
-            <Pressable onPress={avanti} style={styles.button}>
+            </Pressable>)}
+            {conta!=dati.length-1&&(<Pressable onPress={avanti} style={styles.button}>
               <Text>{"AVANTI ->"} </Text>
-            </Pressable>
+            </Pressable>)}
           </View>
         </View>
       );
