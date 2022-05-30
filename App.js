@@ -5,6 +5,8 @@ import {createStackNavigator} from '@react-navigation/stack';
 import Questionario from './components/Questionario'
 import Sondaggio from './components/Sondaggio'
 import Statistiche from './components/Statistiche'
+import Feedback from './components/Feedback'
+import Ringraziamenti from './components/Ringraziamenti'
 
 const Stack = createStackNavigator();
 
@@ -38,6 +40,8 @@ const App: React.FC = () => {
             <Stack.Screen name="Sondaggio" component={Sondaggio}/>
             <Stack.Screen name="Questionario" component={Questionario}/>
             <Stack.Screen name="Statistiche" component={Statistiche}/>
+            <Stack.Screen name="Feedback" component={Feedback}/>
+            <Stack.Screen name="Ringraziamenti" component={Ringraziamenti}/>
           </Stack.Navigator>
       </NavigationContainer>
   );
@@ -78,7 +82,6 @@ const styles = StyleSheet.create({
     width: 150,
     height: 150,
     resizeMode: 'contain'
-
   }
 });
 
