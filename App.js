@@ -7,6 +7,8 @@ import Sondaggio from './components/Sondaggio'
 import Statistiche from './components/Statistiche'
 import Feedback from './components/Feedback'
 import Ringraziamenti from './components/Ringraziamenti'
+import PieChartView from './components/PieChartView'
+import BarChartView from './components/BarChartView'
 
 const Stack = createStackNavigator();
 
@@ -42,6 +44,8 @@ const App: React.FC = () => {
             <Stack.Screen name="Statistiche" component={Statistiche}/>
             <Stack.Screen name="Feedback" component={Feedback}/>
             <Stack.Screen name="Ringraziamenti" component={Ringraziamenti}/>
+            <Stack.Screen name="PieChart" component={PieChartView}/>
+            <Stack.Screen name="BarChart" component={BarChartView}/>
           </Stack.Navigator>
       </NavigationContainer>
   );
