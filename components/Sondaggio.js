@@ -21,7 +21,6 @@ const Sondaggio: React.FC = (props) => {
   const [data, setData] = useState([]);
   const [end, setEnd] = useState(false);
   const [invio,setInvio]= useState(false);
-  const [payload, setPayload] = useState([]);
   
 
 
@@ -33,6 +32,7 @@ const Sondaggio: React.FC = (props) => {
         Risposta_1: datas[i].Risposta_1,
         Risposta_2: datas[i].Risposta_2,
         Risposta_3: datas[i].Risposta_3,
+        Risposta: ''
       };
       vet.push(ogg);
     }
@@ -46,6 +46,7 @@ const Sondaggio: React.FC = (props) => {
     setRis3(data[indice].Risposta_3);
   };
 
+/*
   const invia = async () => {
     if(risposta!=''){
       setRisposta('');
@@ -68,26 +69,36 @@ const Sondaggio: React.FC = (props) => {
       }
     }
   };
+  */
 
-  const avanti = () => {
-    if(risposta!=''){
-      const pay = payload;
-      pay.push({Domanda: domanda, Risposta: risposta});
-      setPayload(pay);
-      setRisposta('');
-      if (conta < data.length-1) {
-        // prendo la domanda e la risposta
-        setConta(conta + 1);  
-        if(conta + 1 == data.length-1){
-          setEnd(true);
-        }
-      } else {
-        termina();
-      }
-    }
+  const selezionato = (valore) =>{    
+      setRisposta(valore);
   }
 
+  const avanti = () => {
+
+    // const pay = payload;
+    // pay.push({Domanda: domanda, Risposta: risposta});
+    // setPayload(pay);
+    setRisposta('');
+    
+    if (conta < data.length-1) {
+      // prendo la domanda e la risposta
+      setConta(conta + 1);  
+      if(conta + 1 == data.length-1){
+        setEnd(true);
+      }
+    } else {
+      termina();
+    }
+  
+  }
+  
+
   const indietro = () => {
+    
+    setRisposta('');
+
     if (conta > 0){
       setEnd(false);
       setConta(conta - 1);  
@@ -98,12 +109,11 @@ const Sondaggio: React.FC = (props) => {
   }
   
   const termina = async () => { 
-    if(risposta!=''){
       setInvio(true);
-      for(var i = 0; i < payload.length; i++){
+      for(var i = 0; i < data.length; i++){
         try {
             const richiesta =
-              '{"domanda":"' + payload[i].Domanda + '", "risposta":"' + payload[i].Risposta + '"}';
+              '{"domanda":"' + data[i].Domanda + '", "risposta":"' + data[i].Risposta + '"}';
             const response = await fetch(
               'https://script.google.com/macros/s/AKfycbyNCc8dfydRUPWluNq0JQni0TcxnNpsiM7SBZ2AArMi3M-9dPZ1/exec?action=post&oggetto=' +
                 richiesta
@@ -114,7 +124,6 @@ const Sondaggio: React.FC = (props) => {
         }
       }
       props.navigation.navigate("Feedback");
-    }
   };
 
   const prelevaDomande = async () => {
@@ -136,6 +145,8 @@ const Sondaggio: React.FC = (props) => {
 
   useEffect(() => {
       prelevaDomande();
+      if(risposta != '')
+        data[conta].Risposta = risposta;
   });
 
   if((domanda!=''||ris1!=''||ris2!=''||ris3!='')&&!invio){
@@ -143,7 +154,7 @@ const Sondaggio: React.FC = (props) => {
       return (
         <View style={styles.centered}>
           <Text style={styles.subtitle}>{domanda}</Text>
-          <RadioButtonGroup selected={risposta} onSelected={(value)=>{setRisposta(value)}}>
+          <RadioButtonGroup selected={risposta} onSelected={(value)=>{selezionato(value)}}>
             <RadioButtonItem style={{marginBottom:5, marginTop:5}} value={ris1} label={<Text>{ris1}</Text>} />
             <RadioButtonItem style={{marginBottom:5, marginTop:5}} value={ris2} label={<Text>{ris2}</Text>} />
             <RadioButtonItem style={{marginBottom:5, marginTop:5}} value={ris3} label={<Text>{ris3}</Text>} />
@@ -160,7 +171,7 @@ const Sondaggio: React.FC = (props) => {
       return (
       <View style={styles.centered}>
         <Text style={styles.subtitle}>{domanda}</Text>
-        <RadioButtonGroup selected={risposta} onSelected={(value)=>{setRisposta(value)}}>
+        <RadioButtonGroup selected={risposta} onSelected={(value)=>{selezionato(value)}}>
           <RadioButtonItem style={{marginBottom:5, marginTop:5}} value={ris1} label={<Text>{ris1}</Text>} />
           <RadioButtonItem style={{marginBottom:5, marginTop:5}} value={ris2} label={<Text>{ris2}</Text>} />
           <RadioButtonItem style={{marginBottom:5, marginTop:5}} value={ris3} label={<Text>{ris3}</Text>} />
