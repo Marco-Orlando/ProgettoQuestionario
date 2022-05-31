@@ -4,7 +4,7 @@ import {
   TextInput,
   Text,
   View,
-  StyleSheet,Image,Pressable
+  StyleSheet,Image,Pressable,Dimensions
 } from 'react-native';
 import {BarChart} from "react-native-chart-kit";
 
@@ -80,7 +80,7 @@ const BarChartView:React.FC=(props)=>{
   const chartConfig = {
     backgroundGradientFromOpacity: 0.2,
     backgroundGradientToOpacity: 0.2,
-    color: () => 'black',
+    color: () => 'black'
   };
 
   if(dati.length!=0){
@@ -95,10 +95,12 @@ const BarChartView:React.FC=(props)=>{
             datasets:
             [{data:[dati[conta].Num_R1,dati[conta].Num_R2,dati[conta].Num_R3,dati[conta].Num_R4]}]
           }}
-          width={300}
-          height={220}
+          width={Dimensions.get('window').width*0.9}
+          height={Dimensions.get('window').height*0.4}
           yAxisLabel=""
           chartConfig={chartConfig}
+          fromZero={true}
+          showValuesOnTopOfBars={true}
         />
         <View style={{flexDirection:'row'}}>
           {conta!=0&&(<Pressable onPress={indietro} style={styles.button}>
@@ -132,7 +134,12 @@ const styles = StyleSheet.create({
   title: {
     fontWeight: 'bold',
     fontSize: 15,
-    marginButtom: 30
+    marginBottom: 30,
+    borderWidth:1,
+    borderRadius:50,
+    paddingVertical:15,
+    paddingHorizontal:30,
+    backgroundColor:"#e0ffff",
   },
   button: {
     textAlign:'center',
@@ -151,6 +158,5 @@ const styles = StyleSheet.create({
     borderRadius:10,
     borderColor:'blue',
     padding:2,
-    marginTop:30
   }
 });

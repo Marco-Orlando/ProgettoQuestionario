@@ -4,7 +4,7 @@ import {
   TextInput,
   Text,
   View,
-  StyleSheet,Image,Pressable
+  StyleSheet,Image,Pressable,Dimensions
 } from 'react-native';
 import {PieChart} from "react-native-chart-kit";
 
@@ -112,13 +112,14 @@ if(dati.length!=0){
         <View style={styles.centered}>
           <Text style={styles.title}>{domande[conta]}</Text>
           <PieChart
+            style={styles.grafico}
             data={dati[conta].record}
-            width={300}
-            height={220}
+            width={Dimensions.get('window').width*0.95}
+            height={Dimensions.get('window').height*0.4}
             chartConfig={chartConfig}
             accessor={"population"}
             backgroundColor={"transparent"}
-            paddingLeft={"15"}
+            paddingLeft={"10"}
           />
           <View style={{flexDirection:'row'}}>
             {conta!=0&&(<Pressable onPress={indietro} style={styles.button}>
@@ -152,7 +153,12 @@ const styles = StyleSheet.create({
   title: {
     fontWeight: 'bold',
     fontSize: 15,
-    marginButtom: 30
+    marginBottom: 30,
+    borderWidth:1,
+    borderRadius:50,
+    paddingVertical:15,
+    paddingHorizontal:30,
+    backgroundColor:"#e0ffff",
   },
   button: {
     textAlign:'center',
