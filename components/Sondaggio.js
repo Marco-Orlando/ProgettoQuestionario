@@ -17,6 +17,7 @@ const Sondaggio: React.FC = (props) => {
   const [ris1, setRis1] = useState('');
   const [ris2, setRis2] = useState('');
   const [ris3, setRis3] = useState('');
+  const [ris4, setRis4] = useState('');
   const [conta, setConta] = useState(0);
   const [data, setData] = useState([]);
   const [end, setEnd] = useState(false);
@@ -32,6 +33,7 @@ const Sondaggio: React.FC = (props) => {
         Risposta_1: datas[i].Risposta_1,
         Risposta_2: datas[i].Risposta_2,
         Risposta_3: datas[i].Risposta_3,
+        Risposta_4: datas[i].Risposta_4,
         Risposta: ''
       };
       vet.push(ogg);
@@ -44,6 +46,7 @@ const Sondaggio: React.FC = (props) => {
     setRis1(data[indice].Risposta_1);
     setRis2(data[indice].Risposta_2);
     setRis3(data[indice].Risposta_3);
+    setRis4(data[indice].Risposta_4)
   };
 
 /*
@@ -157,6 +160,7 @@ const Sondaggio: React.FC = (props) => {
             <RadioButtonItem style={{marginBottom:5, marginTop:5}} value={ris1} label={<Text>{ris1}</Text>} />
             <RadioButtonItem style={{marginBottom:5, marginTop:5}} value={ris2} label={<Text>{ris2}</Text>} />
             <RadioButtonItem style={{marginBottom:5, marginTop:5}} value={ris3} label={<Text>{ris3}</Text>} />
+            <RadioButtonItem style={{marginBottom:5, marginTop:5}} value={ris4} label={<Text>{ris4}</Text>} />
           </RadioButtonGroup>
           <View style={{flexDirection:'row'}}>
           {conta!=0&&(<Pressable onPress={indietro} style={styles.button}>

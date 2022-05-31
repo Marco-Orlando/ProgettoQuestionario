@@ -47,9 +47,17 @@ const PieChartView:React.FC=(props)=>{
         legendFontColor: "green",
         legendFontSize: 15
       };
+      const ogg4 = {
+        name: datas[i].Risposta_4,
+        population:datas[i].Num_R4,
+        color: "grey",
+        legendFontColor: "grey",
+        legendFontSize: 15
+      };
       record.push(ogg1);
       record.push(ogg2);
       record.push(ogg3);
+      record.push(ogg4);
       const oggettoFinale={record};
       vet.push(oggettoFinale);
     }

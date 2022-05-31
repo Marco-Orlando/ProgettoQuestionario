@@ -33,6 +33,8 @@ const BarChartView:React.FC=(props)=>{
         Num_R2:datas[i].Num_R2,
         Risposta_3: datas[i].Risposta_3,
         Num_R3:datas[i].Num_R3,
+        Risposta_4: datas[i].Risposta_4,
+        Num_R4:datas[i].Num_R4
       };
       vet.push(ogg);
     }
@@ -79,34 +81,37 @@ const BarChartView:React.FC=(props)=>{
     backgroundGradientFromOpacity: 0.2,
     backgroundGradientToOpacity: 0.2,
     color: () => 'black',
-    
   };
-    if(dati.length!=0){
-      return(
-        <View style={styles.centered}>
-          <Text style={styles.title}>{domande[conta]}</Text>
-          <BarChart
-            style={styles.grafico}
-            data={{
-              labels:[dati[conta].Risposta_1,dati[conta].Risposta_2,dati[conta].Risposta_3],              datasets:[{data:[dati[conta].Num_R1,dati[conta].Num_R2,dati[conta].Num_R3]}]
-            }}
-            width={270}
-            height={220}
-            yAxisLabel=""
-            chartConfig={chartConfig}
-          />
-          <View style={{flexDirection:'row'}}>
-            {conta!=0&&(<Pressable onPress={indietro} style={styles.button}>
-              <Text>{"<- INDIETRO"}</Text>
-            </Pressable>)}
-            {conta!=dati.length-1&&(<Pressable onPress={avanti} style={styles.button}>
-              <Text>{"AVANTI ->"} </Text>
-            </Pressable>)}
-          </View>
+
+  if(dati.length!=0){
+    return(
+      <View style={styles.centered}>
+        <Text style={styles.title}>{domande[conta]}</Text>
+        <BarChart
+          style={styles.grafico}
+          data={{
+            labels:
+            [dati[conta].Risposta_1,dati[conta].Risposta_2,dati[conta].Risposta_3,dati[conta].Risposta_4],
+            datasets:
+            [{data:[dati[conta].Num_R1,dati[conta].Num_R2,dati[conta].Num_R3,dati[conta].Num_R4]}]
+          }}
+          width={300}
+          height={220}
+          yAxisLabel=""
+          chartConfig={chartConfig}
+        />
+        <View style={{flexDirection:'row'}}>
+          {conta!=0&&(<Pressable onPress={indietro} style={styles.button}>
+            <Text>{"<- INDIETRO"}</Text>
+          </Pressable>)}
+          {conta!=dati.length-1&&(<Pressable onPress={avanti} style={styles.button}>
+            <Text>{"AVANTI ->"} </Text>
+          </Pressable>)}
         </View>
-      );
-    }
-    else{
+      </View>
+    );
+  }
+  else{
     return(
     <View style={styles.centered}>
       <Image source={require('../assets/loading.gif')} style={{width: 100, height: 100 }}/>
@@ -145,7 +150,7 @@ const styles = StyleSheet.create({
     borderWidth:2,
     borderRadius:10,
     borderColor:'blue',
-    padding:10,
+    padding:2,
     marginTop:30
   }
 });
