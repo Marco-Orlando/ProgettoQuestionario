@@ -40,7 +40,7 @@ const Statistiche: React.FC = (props) => {
           width: 190,
           height: 120,
           borderRadius:30,
-          marginTop: 240,
+          marginTop: 50,
           padding: 6
         }}>
         <RadioButtonItem
@@ -79,9 +79,7 @@ const styles = StyleSheet.create({
     backgroundColor: 'lightblue',
   },
   title: {
-      position: 'absolute',
-      left: 130,
-      top: 180,
+      paddingTop:200,
       fontWeight: 'bold',
       color: 'red',
       fontSize: 20,
