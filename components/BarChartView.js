@@ -80,7 +80,7 @@ const BarChartView: React.FC = (props) => {
   const chartConfig = {
     backgroundGradientFromOpacity: 0.2,
     backgroundGradientToOpacity: 0.2,
-    color: () => 'darkwhite',
+    color: () => 'white',
   };
 
   if (dati.length != 0) {
