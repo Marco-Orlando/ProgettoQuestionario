@@ -135,7 +135,7 @@ const PieChartView: React.FC = (props) => {
           <Text style={styles.title}>{domande[conta]}</Text>
           <PieChart
             data={datiGrafico[conta].record2}
-            width={300}
+            width={320}
             height={220}
             chartConfig={chartConfig}
             accessor={'population'}
