@@ -128,8 +128,8 @@ const Sondaggio: React.FC = (props) => {
         <RadioButtonGroup
           containerStyle={{
             borderWidth: 1,
-            width: 250,
-            height: 260,
+            width: "75%",
+            height: "35%",
             borderRadius: 30,
             backgroundColor: 'white',
             marginTop: 150,
