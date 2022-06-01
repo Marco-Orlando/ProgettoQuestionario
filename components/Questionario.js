@@ -1,7 +1,7 @@
 // Importazione delle componenti necessarie
 import React, { useState, useEffect } from 'react';
 import { TextInput , Text, View, StyleSheet, Pressable, Button } from 'react-native';
-import {CheckBox} from 'react-native-elements';
+import {CheckBox} from 'react-native-elements';
 
 const Questionario: React.FC = () => {
 
@@ -41,27 +41,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     backgroundColor: "#eee",
-  },
-  title: {
-    textAlign: 'center',
-    fontWeight: 'bold',
-    fontSize: 20,
-    marginVertical: 30,
-    margin: 10
-  },
-  subtitle: {
-    fontWeight: 'bold',
-    fontSize: 15,
-    marginVertical: 30,
-    margin: 10
-  },
-      input: {
-    width:200,
-    height: 40,
-    margin: 12,
-    borderWidth: 1,
-    padding: 10,
-  },
+  }
 });
 
 export default Questionario;

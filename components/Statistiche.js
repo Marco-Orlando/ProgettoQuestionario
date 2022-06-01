@@ -4,7 +4,9 @@ import {
   TextInput,
   Text,
   View,
-  StyleSheet,Image,Pressable
+  StyleSheet,
+  Image,
+  TouchableOpacity,
 } from 'react-native';
 import {
   LineChart,
@@ -12,33 +14,60 @@ import {
   PieChart,
   ProgressChart,
   ContributionGraph,
-  StackedBarChart
-} from "react-native-chart-kit";
+  StackedBarChart,
+} from 'react-native-chart-kit';
 import { RadioButtonGroup, RadioButtonItem } from 'expo-radio-button';
-import PieChartView from './PieChartView'
+import PieChartView from './PieChartView';
 
+const Statistiche: React.FC = (props) => {
+  const [scelta, setScelta] = useState('');
 
-const Statistiche:React.FC=(props)=>{
+  const naviga = () => {
+    props.navigation.navigate(scelta);
+  };
 
-  const [scelta,setScelta]=useState('');
+  return (
+    <View style={styles.centered}>
+      <Text style={styles.title}>Tipo grafico</Text>
+      <RadioButtonGroup
+        selected={scelta}
+        onSelected={(value) => {
+          setScelta(value);
+        }}
+        containerStyle={{
+          borderWidth: 1,
+          backgroundColor: 'white',
+          width: 190,
+          height: 120,
+          borderRadius:30,
+          marginTop: 240,
+          padding: 6
+        }}>
+        <RadioButtonItem
+          style={{ margin: 15 }}
+          value={'PieChart'}
+          label={<Text>Grafico a torta</Text>}
+        />
+        <RadioButtonItem
+          style={{ margin: 15 }}
+          value={'BarChart'}
+          label={<Text>Grafico a barre</Text>}
+        />
+      </RadioButtonGroup>
 
-  const naviga=()=>{
-    props.navigation.navigate(scelta)
-  }
-
-    return(
-      <View style={styles.centered}>
-          <Text style={styles.title}>Tipo grafico</Text>
-          <RadioButtonGroup selected={scelta} onSelected={(value)=>{setScelta(value)}}>
-            <RadioButtonItem style={{margin:10}} value={"PieChart"} label={<Text>PieChart</Text>} />
-            <RadioButtonItem style={{margin:10}} value={"BarChart"} label={<Text>BarChart</Text>} />
-          </RadioButtonGroup>
-          <Pressable onPress={naviga}style={styles.button}>
-            <Text>{"MOSTRA"} </Text>
-          </Pressable>
+      <View style={styles.viewBtn}>
+        <TouchableOpacity onPress={naviga} style={styles.button}>
+          <Image
+            source={require('../assets/view.png')}
+            style={styles.buttonImageIconStyle}
+          />
+          <View style={styles.buttonIconSeparatorStyle} />
+          <Text style={styles.buttonTextStyle}>Visualizza</Text>
+        </TouchableOpacity>
       </View>
-    );
-  }
+    </View>
+  );
+};
 
 export default Statistiche;
 
@@ -47,23 +76,47 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: 'white',
+    backgroundColor: 'lightblue',
   },
   title: {
-    fontWeight: 'bold',
-    fontSize: 15,
-    marginBottom:30
+      position: 'absolute',
+      left: 130,
+      top: 180,
+      fontWeight: 'bold',
+      color: 'red',
+      fontSize: 20,
   },
   button: {
-    textAlign:'center',
-    alignItems:'center',
-    backgroundColor: 'lightblue',
-    justifyContent:'center',
-    width:100,
+    flexDirection: 'row',
+    alignItems: 'center',
+    backgroundColor: '#FE434C',
+    borderWidth: 0.5,
+    borderColor: '#fff',
+    borderRadius: 10,
+    margin: 10,
+    height: 40,
+    width: 200,
+  },
+  buttonImageIconStyle: {
+    padding: 10,
+    margin: 5,
+    height: 25,
+    width: 25,
+    resizeMode: 'stretch',
+  },
+  buttonTextStyle: {
+    color: '#fff',
+    marginBottom: 4,
+    marginLeft: 10,
+  },
+  buttonIconSeparatorStyle: {
+    backgroundColor: '#fff',
+    width: 1,
+    height: 40,
+  },
+  viewBtn: {
     marginTop: 20,
-    marginHorizontal:15,
-    padding:5,
-    borderWidth: 1,
-    borderRadius:10
-  }
+    flex: 1,
+    alignItems: 'center',
+  },
 });

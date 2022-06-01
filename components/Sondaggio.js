@@ -5,9 +5,9 @@ import {
   Text,
   View,
   StyleSheet,
-  Pressable, 
+  TouchableOpacity,
   Image,
-  Alert
+  Alert,
 } from 'react-native';
 import { RadioButtonGroup, RadioButtonItem } from 'expo-radio-button';
 
@@ -21,12 +21,10 @@ const Sondaggio: React.FC = (props) => {
   const [conta, setConta] = useState(0);
   const [data, setData] = useState([]);
   const [end, setEnd] = useState(false);
-  const [invio,setInvio]= useState(false);
-  
-
+  const [invio, setInvio] = useState(false);
 
   const popola = (datas) => {
-    const vet=[];
+    const vet = [];
     for (var i = 0; i < datas.length; i++) {
       const ogg = {
         Domanda: datas[i].Domanda,
@@ -34,7 +32,7 @@ const Sondaggio: React.FC = (props) => {
         Risposta_2: datas[i].Risposta_2,
         Risposta_3: datas[i].Risposta_3,
         Risposta_4: datas[i].Risposta_4,
-        Risposta: ''
+        Risposta: '',
       };
       vet.push(ogg);
     }
@@ -46,138 +44,169 @@ const Sondaggio: React.FC = (props) => {
     setRis1(data[indice].Risposta_1);
     setRis2(data[indice].Risposta_2);
     setRis3(data[indice].Risposta_3);
-    setRis4(data[indice].Risposta_4)
-  };
-
-/*
-  const invia = async () => {
-    if(risposta!=''){
-      setRisposta('');
-      try {
-        const richiesta =
-          '{"domanda":"' + domanda + '", "risposta":"' + risposta + '"}';
-        const response = await fetch(
-          'https://script.google.com/macros/s/AKfycbyNCc8dfydRUPWluNq0JQni0TcxnNpsiM7SBZ2AArMi3M-9dPZ1/exec?action=post&oggetto=' +
-            richiesta
-        );
-      } catch (error) {
-        <Text>Errore</Text>;
-      } finally {
-        if (conta < data.length-1) {
-          setConta(conta + 1);
-          
-        } else {
-          props.navigation.goBack();
-        }
-      }
+    setRis4(data[indice].Risposta_4);
+    if(risposta==''){
+      setRisposta(data[indice].Risposta);
     }
   };
-  */
 
-  const selezionato = (valore) =>{    
-      setRisposta(valore);
-  }
+  const selezionato = (valore) => {
+    setRisposta(valore);
+  };
 
   const avanti = () => {
-
-    // const pay = payload;
-    // pay.push({Domanda: domanda, Risposta: risposta});
-    // setPayload(pay);
     setRisposta('');
-    
-    if (conta < data.length-1) {
+
+    if (conta < data.length - 1) {
       // prendo la domanda e la risposta
-      setConta(conta + 1);  
-      if(conta + 1 == data.length-1){
+      setConta(conta + 1);
+      if (conta + 1 == data.length - 1) {
         setEnd(true);
       }
     } else {
       termina();
     }
-  
-  }
-  
+  };
 
   const indietro = () => {
-    
     setRisposta('');
 
-    if (conta > 0){
+    if (conta > 0) {
       setEnd(false);
-      setConta(conta - 1);  
-    }
-    else{
+      setConta(conta - 1);
+    } else {
       props.navigation.goBack();
     }
-  }
-  
-  const termina = async () => { 
-      setInvio(true);
-      for(var i = 0; i < data.length; i++){
-        try {
-            const richiesta =
-              '{"domanda":"' + data[i].Domanda + '", "risposta":"' + data[i].Risposta + '"}';
-            const response = await fetch(
-              'https://script.google.com/macros/s/AKfycbyNCc8dfydRUPWluNq0JQni0TcxnNpsiM7SBZ2AArMi3M-9dPZ1/exec?action=post&oggetto=' +
-                richiesta
-            );
-          } 
-        catch (error) {
-          <Text>Errore</Text>;
-        }
+  };
+
+  const termina = async () => {
+    setInvio(true);
+    for (var i = 0; i < data.length; i++) {
+      try {
+        const richiesta =
+          '{"domanda":"' +
+          data[i].Domanda +
+          '", "risposta":"' +
+          data[i].Risposta +
+          '"}';
+        const response = await fetch(
+          'https://script.google.com/macros/s/AKfycbyNCc8dfydRUPWluNq0JQni0TcxnNpsiM7SBZ2AArMi3M-9dPZ1/exec?action=post&oggetto=' +
+          richiesta
+        );
+      } catch (error) {
+        <Text>Errore</Text>;
       }
-      props.navigation.navigate("Feedback");
+    }
+    props.navigation.navigate('Feedback');
   };
 
   const prelevaDomande = async () => {
-      
-      try {
-        if(data.length == 0){
-          const response = await fetch(
-            'https://script.google.com/macros/s/AKfycbyNCc8dfydRUPWluNq0JQni0TcxnNpsiM7SBZ2AArMi3M-9dPZ1/exec?action=getDomande'
-          ); 
-          const json = await response.json();
-          popola(json);
-        }else{
-          renderizza(conta);
-        }
-      } catch (error) {
-        console.log(error);
+    try {
+      if (data.length == 0) {
+        const response = await fetch(
+          'https://script.google.com/macros/s/AKfycbyNCc8dfydRUPWluNq0JQni0TcxnNpsiM7SBZ2AArMi3M-9dPZ1/exec?action=getDomande'
+        );
+        const json = await response.json();
+        popola(json);
+      } else {
+        renderizza(conta);
       }
-     };
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   useEffect(() => {
-      prelevaDomande();
-      if(risposta != '')
-        data[conta].Risposta = risposta;
+    prelevaDomande();
+    if (risposta != '') data[conta].Risposta = risposta;
   });
 
-  if((domanda!=''||ris1!=''||ris2!=''||ris3!='')&&!invio){
-      return (
-        <View style={styles.centered}>
-          <Text style={styles.subtitle}>{domanda}</Text>
-          <RadioButtonGroup selected={risposta} onSelected={(value)=>{selezionato(value)}}>
-            <RadioButtonItem style={{marginBottom:5, marginTop:5}} value={ris1} label={<Text>{ris1}</Text>} />
-            <RadioButtonItem style={{marginBottom:5, marginTop:5}} value={ris2} label={<Text>{ris2}</Text>} />
-            <RadioButtonItem style={{marginBottom:5, marginTop:5}} value={ris3} label={<Text>{ris3}</Text>} />
-            <RadioButtonItem style={{marginBottom:5, marginTop:5}} value={ris4} label={<Text>{ris4}</Text>} />
-          </RadioButtonGroup>
-          <View style={{flexDirection:'row'}}>
-          {conta!=0&&(<Pressable onPress={indietro} style={styles.button}>
-            <Text >{"<- INDIETRO"}</Text>
-          </Pressable>)}
-            <Pressable onPress={avanti} style={styles.button}>
-              <Text >{!end?"AVANTI ->":"TERMINA"} </Text>
-            </Pressable>
-          </View>
+  if ((domanda != '' || ris1 != '' || ris2 != '' || ris3 != '') && !invio) {
+    return (
+      <View style={styles.centered}>
+          <Text style={styles.textDomanda}>{conta + 1 + ". " + domanda}</Text>
+        <RadioButtonGroup
+          containerStyle={{
+            borderWidth: 1,
+            width: 250,
+            height: 260,
+            borderRadius: 30,
+            backgroundColor: 'white',
+            marginTop: 150,
+          }}
+          selected={risposta}
+          onSelected={(value) => {
+            selezionato(value);
+          }}>
+          <RadioButtonItem
+            style={{ margin: 20 }}
+            value={ris1}
+            label={
+              <Text>
+                {ris1}
+              </Text>
+            }
+          />
+          <RadioButtonItem
+            style={{ margin: 20 }}
+            value={ris2}
+            label={
+              <Text >
+                {ris2}
+              </Text>
+            }
+          />
+          <RadioButtonItem
+            style={{ margin: 20}}
+            value={ris3}
+            label={
+              <Text >
+                {ris3}
+              </Text>
+            }
+          />
+          <RadioButtonItem
+            style={{ margin: 20 }}
+            value={ris4}
+            label={
+              <Text >
+                {ris4}
+              </Text>
+            }
+          />
+        </RadioButtonGroup>
+        <View style={styles.viewBtn}>
+          {conta != 0 && (
+            <TouchableOpacity onPress={indietro} style={styles.button}>
+              <Image
+                source={require('../assets/back.png')}
+                style={styles.buttonImageIconStyle}
+              />
+              <View style={styles.buttonIconSeparatorStyle} />
+              <Text style={styles.buttonTextStyle}>Indietro</Text>
+            </TouchableOpacity>
+          )}
+          <TouchableOpacity onPress={avanti} style={styles.button}>
+            <Image
+              source={require('../assets/next.png')}
+              style={styles.buttonImageIconStyle}
+            />
+            <View style={styles.buttonIconSeparatorStyle} />
+            <Text style={styles.buttonTextStyle}>
+              {!end ? 'Avanti' : 'Termina'}{' '}
+            </Text>
+          </TouchableOpacity>
         </View>
-      );
-  }
-  else{
-    return(
-    <View style={styles.centered}>
-      <Image source={require('../assets/loading.gif')} style={{width: 100, height: 100 }}/>
-    </View>
+      </View>
+    );
+  } else {
+    return (
+      <View style={styles.centered}>
+        <Image
+          source={require('../assets/loading.gif')}
+          style={{ width: 100, height: 100 }}
+        />
+      </View>
     );
   }
 };
@@ -188,25 +217,49 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#fff',
-  },
-  subtitle: {
-    fontWeight: 'bold',
-    fontSize: 15,
-    marginVertical: 30,
-    margin: 10,
+    backgroundColor: 'lightblue',
   },
   button: {
-    textAlign:'center',
-    alignItems:'center',
-    backgroundColor: 'lightblue',
-    justifyContent:'center',
-    width:100,
-    marginTop: 40,
-    marginHorizontal:15,
-    padding:5,
-    borderWidth: 1,
-    borderRadius:10
+    flexDirection: 'row',
+    alignItems: 'center',
+    backgroundColor: '#FE434C',
+    borderWidth: 0.5,
+    borderColor: '#fff',
+    borderRadius: 10,
+    margin: 10,
+    height: 40,
+    width: 200,
+  },
+  buttonImageIconStyle: {
+    padding: 10,
+    margin: 5,
+    height: 25,
+    width: 25,
+    resizeMode: 'stretch',
+  },
+  buttonTextStyle: {
+    color: '#fff',
+    marginBottom: 4,
+    marginLeft: 10,
+  },
+  buttonIconSeparatorStyle: {
+    backgroundColor: '#fff',
+    width: 1,
+    height: 40,
+  },
+  viewBtn: {
+    marginTop: 20,
+    flex: 1,
+    alignItems: 'center',
+  },
+
+  textDomanda: {
+      position:'absolute',
+      textAlign: 'center',
+      fontWeight: 'bold',
+      color: 'red',
+      fontSize: 20,
+      top: 50
   }
 });
 
