@@ -176,16 +176,6 @@ const Sondaggio: React.FC = (props) => {
           />
         </RadioButtonGroup>
         <View style={styles.viewBtn}>
-          {conta != 0 && (
-            <TouchableOpacity onPress={indietro} style={styles.button}>
-              <Image
-                source={require('../assets/back.png')}
-                style={styles.buttonImageIconStyle}
-              />
-              <View style={styles.buttonIconSeparatorStyle} />
-              <Text style={styles.buttonTextStyle}>Indietro</Text>
-            </TouchableOpacity>
-          )}
           <TouchableOpacity onPress={avanti} style={styles.button}>
             <Image
               source={require('../assets/next.png')}
@@ -196,6 +186,16 @@ const Sondaggio: React.FC = (props) => {
               {!end ? 'Avanti' : 'Termina'}{' '}
             </Text>
           </TouchableOpacity>
+          {conta != 0 && (
+            <TouchableOpacity onPress={indietro} style={styles.button}>
+              <Image
+                source={require('../assets/back.png')}
+                style={styles.buttonImageIconStyle}
+              />
+              <View style={styles.buttonIconSeparatorStyle} />
+              <Text style={styles.buttonTextStyle}>Indietro</Text>
+            </TouchableOpacity>
+          )}
         </View>
       </View>
     );

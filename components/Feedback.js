@@ -34,7 +34,7 @@ const Feedback: React.FC = (props) => {
     return (
       <View style={styles.centered}>
         <View style={{ margin: 120 }}>
-          <Text style={styles.title}>E perchè non darci un feedback...</Text>
+          <Text style={styles.title}>E perché non darci un feedback...</Text>
           <TextInput
             style={styles.input}
             placeholder="Inserisci qui le tue considerazioni"
@@ -92,7 +92,7 @@ const styles = StyleSheet.create({
   title: {
     fontWeight: 'bold',
     fontSize: 25,
-    marginButtom: 30,
+    marginBottom: 30,
     color: 'red',
     textAlign: 'center',
   },

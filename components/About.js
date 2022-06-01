@@ -4,8 +4,6 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import PersonAbout from './PersonAbout';
 
-const Stack = createStackNavigator();
-
 const About = (props) => {
   const naviga = () => {
     props.navigation.navigate('Home');

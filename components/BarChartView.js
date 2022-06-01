@@ -80,7 +80,7 @@ const BarChartView: React.FC = (props) => {
   const chartConfig = {
     backgroundGradientFromOpacity: 0.2,
     backgroundGradientToOpacity: 0.2,
-    color: () => 'white',
+    color: () => 'darkwhite',
   };
 
   if (dati.length != 0) {
@@ -91,10 +91,10 @@ const BarChartView: React.FC = (props) => {
             style={styles.grafico}
             data={{
               labels: [
-                dati[conta].Risposta_1,
-                dati[conta].Risposta_2,
-                dati[conta].Risposta_3,
-                dati[conta].Risposta_4,
+                "Risposta_1",
+                "Risposta_2",
+                "Risposta_3",
+                "Risposta_4",
               ],
               datasets: [
                 {
@@ -115,7 +115,34 @@ const BarChartView: React.FC = (props) => {
             showValuesOnTopOfBars={true}
             
           />
-          <View style={styles.viewBtn}>
+          <View style={{alignItems:'center'}}>
+          <View style={{flexDirection:'row'}}>
+            <Text style={{fontWeight:'bold'}}>Risposta_1: </Text>
+            <Text style={{marginBottom:5,textAlign:'center'}}>{dati[conta].Risposta_1}</Text>
+          </View>
+          <View style={{flexDirection:'row'}}>
+            <Text style={{fontWeight:'bold'}}>Risposta_2: </Text>
+            <Text style={{marginBottom:5,textAlign:'center'}}>{dati[conta].Risposta_2}</Text>
+          </View>
+          <View style={{flexDirection:'row'}}>
+            <Text style={{fontWeight:'bold'}}>Risposta_3: </Text>
+            <Text style={{marginBottom:5,textAlign:'center'}}>{dati[conta].Risposta_3}</Text>
+          </View>
+          <View style={{flexDirection:'row'}}>
+            <Text style={{fontWeight:'bold'}}>Risposta_4: </Text>
+            <Text style={{marginBottom:5,textAlign:'center'}}>{dati[conta].Risposta_4}</Text>
+          </View>
+          </View>
+          <View style={styles.viewBtn}>{conta != dati.length - 1 && (
+              <TouchableOpacity onPress={avanti} style={styles.button}>
+                <Image
+                  source={require('../assets/next.png')}
+                  style={styles.buttonImageIconStyle}
+                />
+                <View style={styles.buttonIconSeparatorStyle} />
+                <Text style={styles.buttonTextStyle}>{'Avanti'}</Text>
+              </TouchableOpacity>
+            )}
             {conta != 0 && (
               <TouchableOpacity onPress={indietro} style={styles.button}>
                 <Image
@@ -126,16 +153,7 @@ const BarChartView: React.FC = (props) => {
                 <Text style={styles.buttonTextStyle}>{'Indietro'}</Text>
               </TouchableOpacity>
             )}
-            {conta != dati.length - 1 && (
-              <TouchableOpacity onPress={avanti} style={styles.button}>
-                <Image
-                  source={require('../assets/next.png')}
-                  style={styles.buttonImageIconStyle}
-                />
-                <View style={styles.buttonIconSeparatorStyle} />
-                <Text style={styles.buttonTextStyle}>{'Avanti'}</Text>
-              </TouchableOpacity>
-            )}
+            
           </View>
       </View>
     );

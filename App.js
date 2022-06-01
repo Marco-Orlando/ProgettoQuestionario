@@ -110,7 +110,7 @@ const styles = StyleSheet.create({
   },
   locandina: {
     width: '100%',
-    height: 360,
+    height: 360
   },
   button: {
     flexDirection: 'row',

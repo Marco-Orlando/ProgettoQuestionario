@@ -150,15 +150,6 @@ const PieChartView: React.FC = (props) => {
           <Text style={{color:dati[conta].record[3].color,textAlign:'center'}}>{dati[conta].record[3].name}</Text>
           </View>
           <View style={styles.viewBtn}>
-            {conta!=dati.length-1&&(<TouchableOpacity onPress={avanti} style={styles.button}>
-              <Image
-                source={require('../assets/next.png')}
-                style={styles.buttonImageIconStyle}
-              />
-              <View style={styles.buttonIconSeparatorStyle} />
-              <Text style={styles.buttonTextStyle}>Avanti</Text>
-            </TouchableOpacity>)}
-
             {conta!=0&&(<TouchableOpacity onPress={indietro} style={styles.button}>
               <Image
                 source={require('../assets/back.png')}
@@ -166,6 +157,14 @@ const PieChartView: React.FC = (props) => {
               />
               <View style={styles.buttonIconSeparatorStyle} />
               <Text style={styles.buttonTextStyle}>Indietro</Text>
+            </TouchableOpacity>)}
+            {conta!=dati.length-1&&(<TouchableOpacity onPress={avanti} style={styles.button}>
+              <Image
+                source={require('../assets/next.png')}
+                style={styles.buttonImageIconStyle}
+              />
+              <View style={styles.buttonIconSeparatorStyle} />
+              <Text style={styles.buttonTextStyle}>Avanti</Text>
             </TouchableOpacity>)}
           </View>
         </View>

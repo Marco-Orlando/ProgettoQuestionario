@@ -20,7 +20,7 @@ const PersonAbout: React.FC<iProps> = (parametri: iProps) => {
 
 const styles = StyleSheet.create({
   box: {
-    width: 350,
+    width: 360,
     height: 100,
     borderWidth: 1,
     borderRadius: 20,
