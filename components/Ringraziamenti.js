@@ -5,18 +5,20 @@ import {
   Text,
   View,
   StyleSheet,
-  Pressable, 
+  TouchableOpacity, 
   Image
 } from 'react-native';
 
 const Ringraziamenti:React.FC=(props)=>{
   return(
     <View style={styles.centered}>
-      <Text style={styles.subtitle}>Grazie per aver partecipato!</Text>
+      <Text style={styles.title}>Grazie per aver partecipato!</Text>
       <Image source={require('../assets/emojiSorridente.jpg')} style={styles.image} />
-      <Pressable onPress={()=>{props.navigation.navigate("Home")}} style={styles.button}>
-        <Text>FINE</Text>
-      </Pressable>
+      <View style={styles.viewBtn}>
+        <TouchableOpacity onPress={()=>{props.navigation.navigate("Home")}} style={styles.button}>
+          <Text style={styles.buttonTextStyle}>Fine</Text>
+        </TouchableOpacity>
+      </View>
     </View>
   );
 }
@@ -29,29 +31,41 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#fff',
+    backgroundColor: 'lightblue',
+    paddingTop:"50%"
   },
-  subtitle: {
+  title: {
     fontWeight: 'bold',
-    fontSize: 15,
-    marginVertical: 30,
-    margin: 10,
-  },
-  image: {
-    width: 180,
-    height: 180,
-    resizeMode: 'contain'
+    fontSize: 20,
+    marginBottom: 30,
+    color: 'red',
+    textAlign: 'center',
   },
   button: {
-    textAlign:'center',
-    alignItems:'center',
-    backgroundColor: 'lightblue',
+    alignItems: 'center',
     justifyContent:'center',
-    width:100,
-    marginTop: 40,
-    marginHorizontal:15,
-    padding:5,
-    borderWidth: 1,
-    borderRadius:10
-  }
+    backgroundColor: '#FE434C',
+    borderWidth: 0.5,
+    borderColor: '#fff',
+    borderRadius: 10,
+    margin: 10,
+    height: 40,
+    width: 150,
+  },
+  buttonTextStyle: {
+    color: '#fff',
+  },
+  viewBtn: {
+    marginTop: 20,
+    flex: 1,
+    align: 'center',
+  },
+  image: {
+    width: 183,
+    height: 180,
+    resizeMode: 'contain',
+    borderRadius:40,
+    borderWidth:2,
+    borderColor:'yellow'
+  },
 });
