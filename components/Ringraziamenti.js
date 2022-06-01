@@ -64,8 +64,6 @@ const styles = StyleSheet.create({
     width: 183,
     height: 180,
     resizeMode: 'contain',
-    borderRadius:40,
-    borderWidth:2,
-    borderColor:'yellow'
+    borderRadius:40
   },
 });
