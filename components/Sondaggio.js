@@ -129,7 +129,7 @@ const Sondaggio: React.FC = (props) => {
           containerStyle={{
             borderWidth: 1,
             width: "75%",
-            height: "35%",
+            height: "45%",
             borderRadius: 30,
             backgroundColor: 'white',
             marginTop: 150,
